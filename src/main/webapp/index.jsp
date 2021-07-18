@@ -8,9 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Index Page</title>
   </head>
   <body>
-  $END$
+  <div>
+  Index.jsp 입니다.
+  </div>
+  <p><a href="./app/springmvc/v2/student/studentList">Spring Web MVC V2 - Not
+    Using
+    Sevlet API</a></p>
   </body>
 </html>

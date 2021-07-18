@@ -1,6 +1,9 @@
 plugins {
     id 'java'
     id 'war'
+    id 'org.springframework.boot' version '2.4.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "io.freefair.lombok" version "5.3.0"
 }
 
 group 'kr.ac.mjc.youngil'
@@ -11,11 +14,24 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-}
+    // Spring MVC
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Spring JDBC
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    // Live reload
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // For stand-alone Tomcat
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
-test {
-    useJUnitPlatform()
+    // JSP (JSTL, EL)
+    providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    runtimeOnly 'javax.servlet:jstl'
+
+    // MariaDB JDBC Driver
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+    // OWASP Java Encoder
+    implementation 'org.owasp.encoder:encoder:1.2.+'
+    implementation 'org.owasp.encoder:encoder-jsp:1.2.+'
+
 }
