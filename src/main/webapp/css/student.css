@@ -1,0 +1,49 @@
+.pagebar input{
+    padding : 5px;
+    text-align: center;
+    alignment: center;
+}
+
+.addStudentBtn{
+    /*background-color: brown;*/
+}
+
+.list_student{
+    text-align: center;
+}
+
+.item1{
+    padding-right: 20px;
+    display: inline-block;
+}
+.item2{
+    padding-right: 20px;
+    display: inline-block;
+}
+.item3{
+    padding-right: 20px;
+    display: inline-block;
+}
+.item4{
+    padding-right: 20px;
+    display: inline-block;
+}
+.item5{
+    display: inline-block;
+}
+
+.bodyTitle{
+    text-align: center;
+}
+
+/*.pagebar a:link{*/
+/*    color: aquamarine;*/
+
+/*    margin : 5px;*/
+/*}*/
+
+/*.pagebar a:visited{*/
+/*    color: brown;*/
+/*    margin : 5px;*/
+/*}*/
+

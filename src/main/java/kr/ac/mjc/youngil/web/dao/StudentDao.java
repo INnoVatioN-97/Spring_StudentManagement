@@ -28,7 +28,7 @@ public class StudentDao {
 
     //학생 정보 수정
     public static final String UPDATE_STUDENT = """
-            update student set name=:email, gender=:gender, majority=:majority where studentId=:studentId
+            update student set name=:email, gender=:gender, major=:major where studentId=:studentId
             """;
 
     //학생 삭제
@@ -38,22 +38,22 @@ public class StudentDao {
 
     //학생 추가
     public static final String ADD_STUDENT = """
-            insert student values(null, :name, :gender, :birthDay, :majority)
+            insert student values(null, :name, :gender, :birthDay, :major)
             """;
 
     //학생 목록
     public static final String LIST_STUDENTS = """
-            select studentId, name, gender, birthDay, majority from student order by studentId desc limit ?,?
+            select studentId, name, gender, birthDay, major from student order by studentId desc limit ?,?
             """;
 
     //특정 학생 조회
     public static final String GET_STUDENT = """
-            select studentId, name, gender, birthDay, majority from student where studentId=?
+            select studentId, name, gender, birthDay, major from student where studentId=?
             """;
 
     //학과별 학생수 조회
     public static final String COUNT_OF_STUDENT_OF_MAJOR = """
-            select count(studentId) from student where majority=:majority
+            select count(studentId) from student where major=:major
             """;
 
     private JdbcTemplate jdbcTemplate;

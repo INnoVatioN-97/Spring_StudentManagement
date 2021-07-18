@@ -5,11 +5,11 @@ import kr.ac.mjc.youngil.web.dao.Student;
 import kr.ac.mjc.youngil.web.dao.StudentDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -46,6 +46,22 @@ public class StudentController {
 
         // 세션에 현재 리스트 페이지를 넣는다.
         request.getSession().setAttribute("listPage", HttpUtils.getRequestURLWithQueryString(request));
+    }
 
+    /**
+     * 학생 추가 화면
+     */
+    @PostMapping("/addStudent")
+    public String addStudent(
+            @ModelAttribute Student student, RedirectAttributes attributes
+    ){
+        try{
+            studentDao.addStudent(student);
+            return "redirect:/app/springmvc/v2/student/studentList";
+        }catch (DuplicateKeyException e){
+            // redirect 시 attribute 를 저장
+            attributes.addFlashAttribute("msg", "Duplicate email");
+            return "springmvc/v2/springmvc/v2/student/addStudent";
+        }
     }
 }

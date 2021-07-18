@@ -7,6 +7,6 @@ public class Student {
     int studentId;
     String name;
     String gender;
-    String majority;
+    String major;
     String birthDay;
 }
