@@ -1,0 +1,7 @@
+.idea
+.gradle
+build/
+gradle*
+lombok.config
+settings.gradle
+src/main/resources/db.properties
