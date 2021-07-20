@@ -2,6 +2,7 @@ package kr.ac.mjc.youngil.web.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,38 +23,44 @@ import java.util.List;
 @Repository
 public class StudentDao {
     //전체 학생 수
-    public static final String COUNT_ALL_STUDENTS = """
+    private static final String COUNT_ALL_STUDENTS = """
             select count(studentId) from student 
             """;
 
     //학생 정보 수정
-    public static final String UPDATE_STUDENT = """
-            update student set name=:email, gender=:gender, major=:major where studentId=:studentId
+    private static final String UPDATE_STUDENT = """
+            update student set name=:email, gender=:gender, major=:major, password=:password where studentId=:studentId
             """;
 
     //학생 삭제
-    public static final String DELETE_STUDENT = """
-            delete from student where studentId=:studentId
+    private static final String DELETE_STUDENT = """
+            delete from student where studentId=:studentId and password=:password
             """;
 
     //학생 추가
-    public static final String ADD_STUDENT = """
-            insert student values(null, :name, :gender, :birthDay, :major)
+    private static final String ADD_STUDENT = """
+            insert student values(:studentId, :password, :name, :gender, :birthDay, :major)
             """;
 
-    //학생 목록
-    public static final String LIST_STUDENTS = """
+    // 전체 학생 목록
+    private static final String LIST_STUDENTS = """
             select studentId, name, gender, birthDay, major from student order by studentId desc limit ?,?
             """;
 
     //특정 학생 조회
-    public static final String GET_STUDENT = """
+    private static final String GET_STUDENT = """
             select studentId, name, gender, birthDay, major from student where studentId=?
             """;
 
     //학과별 학생수 조회
-    public static final String COUNT_OF_STUDENT_OF_MAJOR = """
+    private static final String COUNT_OF_STUDENT_OF_MAJOR = """
             select count(studentId) from student where major=:major
+            """;
+
+    // 학생 로그인
+    private  static final String LOGIN_STUDENT = """
+            select studentId, password, name from student
+            where(studentId, password) = (?, sha2(?, 256))
             """;
 
     private JdbcTemplate jdbcTemplate;
@@ -122,4 +129,10 @@ public class StudentDao {
         return jdbcTemplate.queryForObject(COUNT_OF_STUDENT_OF_MAJOR, Integer.class);
     }
 
+    /**
+     * 학생 로그인
+     */
+    public Student login(int studentId, String password) throws EmptyResultDataAccessException {
+        return jdbcTemplate.queryForObject(LOGIN_STUDENT, rowMapper, studentId, password);
+    }
 }

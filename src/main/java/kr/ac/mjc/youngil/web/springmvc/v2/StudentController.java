@@ -6,12 +6,16 @@ import kr.ac.mjc.youngil.web.dao.StudentDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.List;
 
 @Controller("studentControllerV2")
@@ -62,6 +66,27 @@ public class StudentController {
             // redirect 시 attribute 를 저장
             attributes.addFlashAttribute("msg", "Duplicate email");
             return "springmvc/v2/springmvc/v2/student/addStudent";
+        }
+    }
+
+    /**
+     * 학생 로그인 동작
+     */
+    @PostMapping("/studentLoginAction")
+    public String loginStudent(
+            @RequestParam int studentId, @RequestParam String password,
+            @RequestParam(required = false, defaultValue = "/") String returnUrl,
+            HttpSession session, RedirectAttributes attributes) {
+        try{
+            Student student = studentDao.login(studentId, password);
+            session.setAttribute("USER", student);
+            return "redirect:"+returnUrl;
+            //로그인 성공시 다시 redirect
+        }catch (EmptyResultDataAccessException e){
+            attributes.addFlashAttribute("studentId", studentId);
+            attributes.addFlashAttribute("msg", "학번, 또는 비밀번호가 잘못 되었습니다.");
+            return "redirect:/app/springmvc/v2/student/studentLogin?returnUrl=" +
+                    URLEncoder.encode(returnUrl, Charset.defaultCharset());
         }
     }
 }

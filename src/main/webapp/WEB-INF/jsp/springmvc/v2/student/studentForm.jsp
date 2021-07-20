@@ -20,6 +20,7 @@
     </h3>
     <form action="./app/springmvc/v2/student/addStudent" method="post">
         <p><input type="text" name="name" placeholder="학생명" required autofocus/></p>
+        <p><input type="password" name="password" placeholder="비밀번호" required/> </p>
         <p><input type="text" name="major" placeholder="전공" required/></p>
         <p>성별 :
             <select name="gender" size="1">
