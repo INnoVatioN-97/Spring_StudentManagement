@@ -10,6 +10,8 @@
 
 .list_student{
     text-align: center;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .item1{
