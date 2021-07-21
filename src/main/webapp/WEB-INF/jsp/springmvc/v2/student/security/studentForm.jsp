@@ -8,10 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>학생 등록 화면</title>
+    <title>회원 정보 등록</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${pageContext.request.contextPath}/">
-    <link rel="stylesheet" href="./css/student.css">
+    <link rel="stylesheet" href="./css/user.css">
 </head>
 <body>
 <main>

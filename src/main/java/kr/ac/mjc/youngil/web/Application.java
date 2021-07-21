@@ -1,11 +1,14 @@
 package kr.ac.mjc.youngil.web;
 
+import kr.ac.mjc.youngil.web.springmvc.v2.LoginInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
@@ -15,6 +18,17 @@ public class Application extends SpringBootServletInitializer
         implements WebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    /**
+     * 인터셉터 등록
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        InterceptorRegistration loginReg =
+                registry.addInterceptor(new LoginInterceptor());
+        loginReg.addPathPatterns("/**/s/**");
+        log.info("LoginInterceptor를 등록했습니다");
     }
 
     @Override

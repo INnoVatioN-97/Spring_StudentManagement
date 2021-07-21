@@ -1,0 +1,36 @@
+footer {
+    background-color: lightgray;
+    padding: 25px;
+    text-align: center;
+}
+
+.logo {
+    /*max-height: 240px;*/
+    height: 20%;
+}
+
+.nav {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.nav li {
+    display: inline;
+}
+
+.nav a {
+    display: inline-block;
+    padding: 8px;
+    color: #f6f5f4;
+}
+
+.nav a:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+.formTemplate{
+    /*margin: 15px;*/
+    align-items: center;
+}
