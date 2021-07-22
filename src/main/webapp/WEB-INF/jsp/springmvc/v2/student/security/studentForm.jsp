@@ -16,7 +16,7 @@
 <body>
 <main>
     <h3 class="bodyTitle">
-        학생 등록.
+        학생 등록
     </h3>
     <form action="./app/springmvc/v2/student/addStudent" method="post">
         <p><input type="text" name="name" placeholder="학생명" required autofocus/></p>

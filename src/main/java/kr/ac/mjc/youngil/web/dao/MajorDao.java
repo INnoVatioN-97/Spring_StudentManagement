@@ -37,6 +37,11 @@ public class MajorDao {
             select count(majorCode) from major
             """;
 
+
+    // 전공 이름들 가져오기 (회원가입용)
+    private static final String GET_MAJOR_NAMES =
+            "select majorName from major";
+
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<Major> rowMapper = new BeanPropertyRowMapper<>(Major.class);
@@ -53,6 +58,11 @@ public class MajorDao {
         return jdbcTemplate.query(LIST_MAJOR, rowMapper, offset, count);
     }
 
+    // 전공 이름 목록
+    public List<Major> getMajorNames(){
+        return jdbcTemplate.query(GET_MAJOR_NAMES, rowMapper);
+    }
+
     // 전공 등록
     public void addMajor(Major major) throws DuplicateKeyException{
         namedParameterJdbcTemplate.update(ADD_MAJOR, new BeanPropertySqlParameterSource(major));
@@ -67,6 +77,7 @@ public class MajorDao {
     public void deleteStudent(String majorCode){
         namedParameterJdbcTemplate.update(DELETE_MAJOR, new BeanPropertySqlParameterSource(majorCode));
     }
+
 
     // 총 전공 개수
     public Integer countOfMajors(){

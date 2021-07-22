@@ -74,7 +74,7 @@ public class UserController {
      */
     @PostMapping("/userLoginAction")
     public String loginUser(
-            @RequestParam int id, @RequestParam String password,
+            @RequestParam String id, @RequestParam String password,
             @RequestParam(required = false, defaultValue = "/") String returnUrl,
             HttpSession session, RedirectAttributes attributes) {
         try{
@@ -85,8 +85,17 @@ public class UserController {
         }catch (EmptyResultDataAccessException e){
             attributes.addFlashAttribute("id", id);
             attributes.addFlashAttribute("msg", "학번/교번, 또는 비밀번호가 잘못 되었습니다.");
-            return "redirect:/app/springmvc/v2/user/userLogin?returnUrl=" +
+            return "redirect:/app/springmvc/v2/user/loginForm?returnUrl=" +
                     URLEncoder.encode(returnUrl, Charset.defaultCharset());
         }
+    }
+
+    /**
+     * 로그 아웃
+     */
+    @GetMapping("/s/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }

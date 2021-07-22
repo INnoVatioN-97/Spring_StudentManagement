@@ -16,16 +16,16 @@
 <body>
 <%@ include file="/WEB-INF/jsp/springmvc/v2/header.jsp" %>
 <div class="formTemplate">
-    <form action="./app/springmvc/v2/user/userLogin" method="post">
+    <form action="./app/springmvc/v2/user/userLoginAction" method="post" id="form1">
         <table class="loginForm">
             <tbody>
             <tr>
-                <td>
+                <td colspan="2">
                     <input type="text" name="id" value="${id}" placeholder="아이디 입력" required autofocus/>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <input type="password" name="password"  required />
                 </td>
             </tr>
@@ -33,10 +33,28 @@
                 <td>
                     <button type="submit" class="btnA">로그인</button>
                 </td>
+                <td>
+                    <button type="submit" class="btnB" id="btnGoJoin">회원가입</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" name="returnUrl"
+                           value="${!empty param.returnUrl? param.returnUrl : header.referer}"/>
+                </td>
             </tr>
             </tbody>
         </table>
     </form>
+    <p class="warn">${msg}</p>
 </div>
 </body>
+<script>
+    var btnGoJoin = document.getElementById("btnGoJoin");
+    btnGoJoin.onclick=  ()=> {
+        location.href="./app/springmvc/v2/user/joinForm";
+    };
+
+</script>
 </html>

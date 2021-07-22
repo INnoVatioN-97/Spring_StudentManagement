@@ -16,7 +16,9 @@
 <body>
 <%--    <%@ include file="Navigation 페이지 아직 안만듬."%>--%>
 <main>
-
+<%
+    if(session.getAttribute("USER") != null){
+%>
     <h3>회원 목록</h3>
     <p>총 ${totalCount}건, ${maxPage}페이지</p>
     <form name="btns" method="get">
@@ -43,6 +45,8 @@
             </thead>
             <tbody>
             <c:forEach var="user" items="${userList}">
+<%--                관리자 계정은 보이지 않게.--%>
+                <c:if test="${user.classification != 'root'}">
                 <tr>
                     <td>${user.classification}</td>
                     <td>${user.id}</td>
@@ -52,10 +56,22 @@
                     <td>${user.majorCode}</td>
                     <td>${user.majorName}</td>
                 </tr>
+                </c:if>
             </c:forEach>
             </tbody>
         </table>
     </div>
+    <%
+        }else{
+    %>
+    <div>
+        <h3>
+            먼저 로그인 하세요.
+        </h3>
+    </div>
+    <%
+        }
+    %>
 </main>
 <%--<%@ include file="/WEB-INF/jsp/springmvc/v2/footer.jsp" %>--%>
 <script>

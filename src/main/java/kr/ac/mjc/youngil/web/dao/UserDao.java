@@ -46,7 +46,7 @@ public class UserDao {
     private static final String LIST_USERS = """
             select classification, id, name, gender, birthDay, majorCode,
             major.majorName majorName from user join major
-            using (majorCode) where classification not in ('root') order by majorName, classification, id limit ?,?
+            using (majorCode) order by majorName, classification, id limit ?,?
             """;
 
     //특정 회원 조회
@@ -66,7 +66,7 @@ public class UserDao {
 
     // 회원 로그인
     private  static final String LOGIN_USER = """
-            select id, password, name from user
+            select id, password, name, classification from user
             where(id, password) = (?, sha2(?, 256))
             """;
 
@@ -146,7 +146,7 @@ public class UserDao {
     /**
      * 회원 로그인
      */
-    public User login(int id, String password) throws EmptyResultDataAccessException {
+    public User login(String id, String password) throws EmptyResultDataAccessException {
         return jdbcTemplate.queryForObject(LOGIN_USER, rowMapper, id, password);
     }
 }
