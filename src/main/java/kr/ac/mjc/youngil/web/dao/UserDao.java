@@ -29,17 +29,17 @@ public class UserDao {
 
     //회원 정보 수정
     private static final String UPDATE_USER = """
-            update user set name=:name, gender=:gender, major=:major, password=:password where studentId=:studentId
+            update user set name=:name, gender=:gender, major=:major, password=:password where id=:id
             """;
 
     //회원 삭제
     private static final String DELETE_USER = """
-            delete from student where studentId=:studentId and password=:password
+            delete from user where id=:id and password=:password
             """;
 
     //회원 추가
     private static final String ADD_USER = """
-            insert student values(:studentId, :password, :name, :gender, :birthDay, :major)
+            insert user values(?, ?, sha2(?,256), ?, ?, ?, ?)
             """;
 
     // 전체 회원 목록 (관리자 제외)
@@ -51,7 +51,7 @@ public class UserDao {
 
     //특정 회원 조회
     private static final String GET_USER = """
-            select studentId, name, gender, birthDay, major from student where studentId=?
+            select id, name, gender, birthDay, major from student where studentId=?
             """;
 
     //학과별 교직원 수 조회
@@ -65,7 +65,7 @@ public class UserDao {
             """;
 
     // 회원 로그인
-    private  static final String LOGIN_USER = """
+    private static final String LOGIN_USER = """
             select id, password, name, classification from user
             where(id, password) = (?, sha2(?, 256))
             """;
@@ -107,8 +107,9 @@ public class UserDao {
      * @throws DuplicateKeyException 이메일이 중복되어 사용자 등록에 실패할 경우
      */
     public void addUser(User user) throws DuplicateKeyException {
-        namedParameterJdbcTemplate
-                .update(ADD_USER, new BeanPropertySqlParameterSource(user));
+//        namedParameterJdbcTemplate
+//                .update(ADD_USER, new BeanPropertySqlParameterSource(user));
+        jdbcTemplate.query(ADD_USER, rowMapper, user.id, user.classification, user.password, user.name, user.gender, user.birthDay, user.majorCode);
     }
 
     /**

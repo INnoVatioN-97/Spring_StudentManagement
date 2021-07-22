@@ -55,7 +55,7 @@ public class MajorController {
 //        log.debug(HttpUtils.getRequestURLWithQueryString(request));
 
 //        request.getSession().setAttribute("listPage", HttpUtils.getRequestURLWithQueryString(request));
-        return "redirect:/app/springmvc/v2/user/addUser";
+        return "/springmvc/v2/user/joinForm";
     }
 
     /**

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: koyou
@@ -18,10 +19,27 @@
         <h3>
             회원 등록
         </h3>
-        <form action="./app/springmvc/v2/user/addUser" method="post">
-            <p><input type="text" name="name" placeholder="이름" required autofocus/></p>
+        <form action="./app/springmvc/v2/user/security/addUser" method="post">
+            <p><input type="text" name="id" placeholder="학번/교번" required autofocus/></p>
+            <p>성별 :
+                <label>
+                    <select name="classification" size="1">
+                        <option value="student">학생</option>
+                        <option value="staff">교직원</option>
+                    </select>
+                </label>
+            </p>
+            <p><input type="text" name="name" placeholder="이름" required/></p>
             <p><input type="password" name="password" placeholder="비밀번호" required/> </p>
-            <p><input type="text" name="major" placeholder="전공" required/></p>
+            <p>
+                <label>
+                    <select name="majorCode" size="1">
+                        <c:forEach var="major" items="${majorNameList}">
+                            <option value="${major.majorCode}">${major.majorName}</option>
+                        </c:forEach>
+                    </select>
+                </label>
+            </p>
             <p>성별 :
                 <select name="gender" size="1">
                     <option value="M">남성</option>

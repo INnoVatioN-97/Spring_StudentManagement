@@ -56,7 +56,7 @@
                 <a href="./app/springmvc/v2/user/loginForm">로그인</a>
             </li>
             <li>
-                <a href="./app/springmvc/v2/user/joinForm">회원가입</a>
+                <a href="./app/springmvc/v2/major/preJoinForm">회원가입</a>
             </li>
         </c:otherwise>
     </c:choose>

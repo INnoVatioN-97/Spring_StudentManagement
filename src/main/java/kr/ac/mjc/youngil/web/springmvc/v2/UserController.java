@@ -52,6 +52,8 @@ public class UserController {
         request.getSession().setAttribute("listPage", HttpUtils.getRequestURLWithQueryString(request));
     }
 
+
+
     /**
      * 학생 추가 화면
      */
@@ -61,7 +63,7 @@ public class UserController {
     ){
         try{
             userDao.addUser(student);
-            return "redirect:/app/springmvc/v2/student/studentList";
+            return "redirect:/app/springmvc/v2/user/userList";
         }catch (DuplicateKeyException e){
             // redirect 시 attribute 를 저장
             attributes.addFlashAttribute("msg", "Duplicate email");
