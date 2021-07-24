@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.List;
 
-@Controller("studentControllerV2")
+@Controller("userControllerV2")
 @RequestMapping("/springmvc/v2/user")
 @Slf4j
 public class UserController {
@@ -95,9 +95,15 @@ public class UserController {
     /**
      * 로그 아웃
      */
-    @GetMapping("/s/logout")
+    @GetMapping("/security/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
+    @GetMapping("security/myInfo")
+    public void myInfo(@RequestParam(required = false) String id, Model model){
+        model.addAttribute("userObj", userDao.getUser(id));
+        // model 객체에 userObj 라는 이름으로 user 정보를 넣어 myInfo 페이지에서 사용.
     }
 }

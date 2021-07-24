@@ -4,8 +4,12 @@
 ## 사용된 프레임워크
 -   Springboot
 
-***
+---
 ###  데이터베이스 구조
+###### 현재 상태 : 로컬 DB, 추후 개발 상황에 따라 AWS 호스팅 예정
+
+
+
 #### user 테이블
     
 |Filed|Type|Null|Key|
@@ -18,10 +22,12 @@
 |birthDay|date|NO||
 |majorCode|varchar(10)|NO|MUL (Major 테이블을 참조)|
 
-***
+> 전공명을 보이기 위해 user bean 클래스에는 majorName 이라는 변수를 넣어 둔 상태입니다.
 #### major 테이블
 
 |Filed|Type|Null|Key|
 |---|---|---|---|
 |majorCode|varchar(10)|NO|PRI|
 |majorName|varchar(20)|NO||
+
+---

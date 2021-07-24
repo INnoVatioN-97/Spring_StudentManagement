@@ -49,9 +49,9 @@ public class UserDao {
             using (majorCode) order by majorName, classification, id limit ?,?
             """;
 
-    //특정 회원 조회
+    // 내 정보 (특정 회원 조회)
     private static final String GET_USER = """
-            select id, name, gender, birthDay, major from student where studentId=?
+            select id, name, classification, gender, birthDay, majorCode, major.majorName majorName from user join major using(majorCode) where id=?
             """;
 
     //학과별 교직원 수 조회
@@ -97,8 +97,8 @@ public class UserDao {
     /**
      * 회원 조회
      */
-    public User getUser(int studentId) {
-        return jdbcTemplate.queryForObject(GET_USER, rowMapper, studentId);
+    public User getUser(String id) {
+        return jdbcTemplate.queryForObject(GET_USER, rowMapper, id);
     }
 
     /**
