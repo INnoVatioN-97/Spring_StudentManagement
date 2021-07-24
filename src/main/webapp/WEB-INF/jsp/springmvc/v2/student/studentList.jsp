@@ -17,7 +17,7 @@
     <%--너비를 화면에 맞게 조절--%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${pageContext.request.contextPath}/">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/student.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user.css">
 </head>
 <body>
 <%--    <%@ include file="Navigation 페이지 아직 안만듬."%>--%>

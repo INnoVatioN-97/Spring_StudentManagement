@@ -105,8 +105,9 @@ public class UserController {
      * 내 정보
      */
     @GetMapping("security/myInfo")
-    public void myInfo(@RequestParam(required = false) String id, Model model){
-        model.addAttribute("userObj", userDao.getUser(id));
+    public void myInfo(Model model, HttpSession session){
+        User user = (User)session.getAttribute("USER");
+        model.addAttribute("userObj", userDao.getUser(user.getId()));
         // model 객체에 userObj 라는 이름으로 user 정보를 넣어 myInfo 페이지에서 사용.
     }
 }

@@ -59,11 +59,12 @@ public class MajorController {
     }
 
     /**
-     * 전공 추가 화면
+     * 과목 추가 화면
      */
 
-    @GetMapping("/addMajor")
+    @GetMapping("/preAddSubject")
     public String addMajor(Model model){
+        // 과목 추가시 현존하는 학과목록을 표시하기 위한 메소드
         List<Major> majorList = majorDao.getMajorNames();
 
         model.addAttribute("majorList", majorList);
@@ -71,15 +72,15 @@ public class MajorController {
     }
 
     /**
-     * 전공 추가 액션
+     *  학과 추가 동작
      */
-    @PostMapping("/addMajorAction")
+    @PostMapping("/root/addMajorAction")
     public String addMajorAction(
             @ModelAttribute Major major, RedirectAttributes attributes
     ) {
         try {
             majorDao.addMajor(major);
-            return "redirect:/app/springmvc/v2/major/majorList";
+            return "redirect:/app/springmvc/v2/major/root/majorList";
         } catch (DuplicateKeyException e) {
             // redirect 시 attribute 를 저장
             attributes.addFlashAttribute("msg", "Duplicate Major Name");

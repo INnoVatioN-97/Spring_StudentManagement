@@ -53,7 +53,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <a href="./app/springmvc/v2/major/addMajor">학과 추가하기</a>
+                <a href="./app/springmvc/v2/major/root/addMajor">학과 추가하기</a>
             </div>
         </c:when>
         <c:otherwise>

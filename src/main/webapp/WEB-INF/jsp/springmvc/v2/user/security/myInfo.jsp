@@ -11,7 +11,7 @@
 <%@include file="/WEB-INF/jsp/springmvc/v2/headerNav.jsp" %>
 <main>
     <c:choose>
-        <%--로그인 했을 경우--%>
+        <%--로그인 했고, 동시에 세션에 로그인 된 USER의 ID와 myInfo의 ID가 같은지--%>
         <c:when test="${!empty sessionScope.USER}">
             <h3>내 정보</h3>
             <ul class="myInfo">

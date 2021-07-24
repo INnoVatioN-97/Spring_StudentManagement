@@ -50,7 +50,7 @@
                 </c:otherwise>
             </c:choose>
             <li>
-                <a href="./app/springmvc/v2/user/security/myInfo?id=${sessionScope.USER.id}">내 정보</a>
+                <a href="./app/springmvc/v2/user/security/myInfo">내 정보</a>
             </li>
             <li>
                 <a href="./app/springmvc/v2/user/security/logout">로그아웃</a>
