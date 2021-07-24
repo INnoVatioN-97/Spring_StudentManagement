@@ -28,7 +28,7 @@ public class MajorController {
     /**
      * 과목 목록 화면
      */
-    @GetMapping("/majorList")
+    @GetMapping("/root/majorList")
     public void majorList(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "20") int count,
@@ -46,9 +46,9 @@ public class MajorController {
     }
 
 
-    // 전공 이름들 가져오기
+    // 학과명들을 가져온 후 회원가입 창으로 이동
     @GetMapping("/preJoinForm")
-    public String majorNameList(HttpServletRequest request, Model model) {
+    public String majorNameList(Model model) {
         List<Major> majorNameList = majorDao.getMajorNames();
 
         model.addAttribute("majorNameList", majorNameList);
@@ -61,8 +61,20 @@ public class MajorController {
     /**
      * 전공 추가 화면
      */
-    @PostMapping("/addMajor")
-    public String addStudent(
+
+    @GetMapping("/addMajor")
+    public String addMajor(Model model){
+        List<Major> majorList = majorDao.getMajorNames();
+
+        model.addAttribute("majorList", majorList);
+        return "/springmvc/v2/subject/addSubject";
+    }
+
+    /**
+     * 전공 추가 액션
+     */
+    @PostMapping("/addMajorAction")
+    public String addMajorAction(
             @ModelAttribute Major major, RedirectAttributes attributes
     ) {
         try {

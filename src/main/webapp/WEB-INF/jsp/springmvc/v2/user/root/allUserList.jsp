@@ -36,11 +36,19 @@
 
         </p>
     </form>
-    <div class="list_user">
-        <table bgcolor="#f5f5dc" border="2">
+    <div class="list">
+        <table>
             <thead>
             <tr>
                 <th colspan="7"> 전체 회원 목록</th>
+            </tr>
+            <tr>
+                <td>분류</td>
+                <td>학번/교번</td>
+                <td>이름</td>
+                <td>성별</td>
+                <td>생년월일</td>
+                <td>학과</td>
             </tr>
             </thead>
             <tbody>
@@ -53,7 +61,6 @@
                     <td>${user.name}</td>
                     <td>${user.gender}</td>
                     <td>${user.birthDay}</td>
-                    <td>${user.majorCode}</td>
                     <td>${user.majorName}</td>
                 </tr>
                 </c:if>

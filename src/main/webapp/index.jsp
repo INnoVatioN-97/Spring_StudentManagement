@@ -16,7 +16,7 @@
 <%
 //    response.sendRedirect("./app/springmvc/v2/student/studentLogin");
 
-    response.sendRedirect("./app/springmvc/v2/user/userList");
+    response.sendRedirect("./app/springmvc/v2/home");
 %>
 
 </main>

@@ -30,9 +30,9 @@ public class UserController {
     }
 
     /**
-     * 학생 목록 화면
+     * 전체 회원 목록 화면
      */
-    @GetMapping("/userList")
+    @GetMapping("/root/allUserList")
     public void userList(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "20") int count,
@@ -101,6 +101,9 @@ public class UserController {
         return "redirect:/";
     }
 
+    /**
+     * 내 정보
+     */
     @GetMapping("security/myInfo")
     public void myInfo(@RequestParam(required = false) String id, Model model){
         model.addAttribute("userObj", userDao.getUser(id));

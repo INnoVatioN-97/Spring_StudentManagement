@@ -21,7 +21,7 @@
         </h3>
         <form action="./app/springmvc/v2/user/security/addUser" method="post">
             <p><input type="text" name="id" placeholder="학번/교번" required autofocus/></p>
-            <p>성별 :
+            <p>구분 :
                 <label>
                     <select name="classification" size="1">
                         <option value="student">학생</option>
@@ -49,7 +49,7 @@
             </p>
             <p><input type="date" name="birthDay" placeholder="생년월일" required/></p>
             <p>
-                <button type="submit" class="button a">학생 추가하기</button>
+                <button type="submit" class="button a">가입 하기</button>
                 <button type="button" onclick="history.back();" class="button b">취소
                 </button>
             </p>

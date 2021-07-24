@@ -40,7 +40,7 @@ public class MajorDao {
 
     // 전공 이름들 가져오기 (회원가입용)
     private static final String GET_MAJOR_NAMES =
-            "select majorName, majorCode from major";
+            "select majorName, majorCode from major order by majorCode";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;

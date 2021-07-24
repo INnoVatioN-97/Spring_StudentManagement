@@ -15,11 +15,12 @@ footer {
 .nav {
     margin: 0;
     padding: 0;
+    text-align:center;
     background-color: black;
 }
 
 .nav li {
-    display: inline;
+    display: inline-block;
 }
 
 .nav a {
@@ -37,3 +38,20 @@ footer {
     /*margin: 15px;*/
     align-items: center;
 }
+
+.list{
+    align-items: center;
+}
+
+.list table{
+    width: 100%;
+}
+.list th{
+    padding: 20px;
+}
+.list table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
