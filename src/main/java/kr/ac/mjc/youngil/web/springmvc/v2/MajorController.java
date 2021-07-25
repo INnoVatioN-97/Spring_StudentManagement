@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller("majorControllerV2")
@@ -88,5 +90,13 @@ public class MajorController {
         }
     }
 
+    /**
+     * 학과 정보
+     */
+    @GetMapping("/security/majorInfo")
+    public void majorInfo(Model model, HttpServletRequest request, HttpSession session){
+        Major major = majorDao.getMajor(request.getParameter("majorCode"));
+        model.addAttribute("major", major);
+    }
 }
 

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller("userControllerV2")
@@ -104,10 +106,25 @@ public class UserController {
     /**
      * 내 정보
      */
-    @GetMapping("security/myInfo")
+    @GetMapping("/security/myInfo")
     public void myInfo(Model model, HttpSession session){
         User user = (User)session.getAttribute("USER");
         model.addAttribute("userObj", userDao.getUser(user.getId()));
         // model 객체에 userObj 라는 이름으로 user 정보를 넣어 myInfo 페이지에서 사용.
+    }
+
+    /**
+     * 학과 정보 출력 전 사전작업 1
+     */
+    @GetMapping("/security/preMajorInfo")
+    public String preMajorInfo(Model model, HttpServletRequest request){
+        String majorCode = request.getParameter("majorCode");
+        int studentCount = userDao.countStudentOfMajor(majorCode);
+        int staffCount = userDao.countStaffOfMajor(majorCode);
+//        model.addAttribute("majorCode", majorCode);
+        model.addAttribute("studentCount", studentCount);
+        model.addAttribute("staffCount", staffCount);
+
+        return "forward:/app/springmvc/v2/subject/security/preMajorInfo?majorCode="+majorCode;
     }
 }

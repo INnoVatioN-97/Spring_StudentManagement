@@ -56,17 +56,17 @@ public class UserDao {
 
     //학과별 교직원 수 조회
     private static final String COUNT_OF_STAFFS_OF_MAJOR = """
-            select count(id) from user where major=:major and classification='staff'
+            select count(id) from user where majorCode=? and classification='staff'
             """;
 
     //학과별 학생 수 조회
     private static final String COUNT_OF_STUDENTS_OF_MAJOR = """
-            select count(id) from user where major=:major and classification='student'
+            select count(id) from user where majorCode=? and classification='student'
             """;
 
     // 회원 로그인
     private static final String LOGIN_USER = """
-            select id, password, name, classification from user
+            select id, password, name, classification, majorCode from user
             where(id, password) = (?, sha2(?, 256))
             """;
 
@@ -131,17 +131,17 @@ public class UserDao {
     }
 
     /**
-     * 특정 학과 학생수
+     * 특정 학과 학생 수
      */
-    public Integer countStudentOfMajor() {
-        return jdbcTemplate.queryForObject(COUNT_OF_STUDENTS_OF_MAJOR, Integer.class);
+    public Integer countStudentOfMajor(String majorCode) {
+        return jdbcTemplate.queryForObject(COUNT_OF_STUDENTS_OF_MAJOR, Integer.class, majorCode);
     }
 
     /**
-     * 특정 학과 학생수
+     * 특정 학과 교직원 수
      */
-    public Integer countStaffOfMajor() {
-        return jdbcTemplate.queryForObject(COUNT_OF_STAFFS_OF_MAJOR, Integer.class);
+    public Integer countStaffOfMajor(String majorCode) {
+        return jdbcTemplate.queryForObject(COUNT_OF_STAFFS_OF_MAJOR, Integer.class, majorCode);
     }
 
     /**

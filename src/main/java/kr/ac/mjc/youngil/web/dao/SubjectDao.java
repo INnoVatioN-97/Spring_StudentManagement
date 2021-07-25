@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -20,11 +19,22 @@ public class SubjectDao {
             order by majorCode asc, professorId asc limit ?,?
             """;
 
+    // 특정 학과 교과목
+    private static final String LIST_SUBJECTS_OF_CERTAIN_MAJOR = """
+            select subjectCode, subjectName, professorId, user.name professorName,
+             subject.majorCode, major.majorName 
+             from subject join user join major 
+             where professorId = user.id 
+             and subject.majorCode = major.majorCode 
+             and subject.majorCode = ? order by professorId limit ?,?
+            """;
+
     /**
-     * select subjectCode, subject.majorCode, subjectName,
-     * user.name name, professorId from subject
-     * join user where professorId = user.id;
+     * 특정 학과 교과목 수
      */
+    private static final String COUNT_OF_SUBJECTS_OF_CERTAIN_MAJOR= """
+            select count(subjectCode) from subject where majorCode=?;
+            """;
 
     // 과목 추가
     private static final String ADD_SUBJECT = """
@@ -61,15 +71,28 @@ public class SubjectDao {
     /**
      * 과목 목록
      */
-    public List<Subject> listAllSubjects(int offset, int count){
+    public List<Subject> listAllSubjects(int offset, int count) {
         return jdbcTemplate.query(LIST_ALL_SUBJECTS, rowMapper, offset, count);
     }
 
     /**
      * 전체 과목 수
      */
-    public Integer countAllSubjects(){
+    public Integer countAllSubjects() {
         return jdbcTemplate.queryForObject(COUNT_ALL_SUBJECTS, Integer.class);
     }
 
+    /**
+     * 특정 학과 과목들 조회
+     */
+    public List<Subject> listSubjectOfCertainMajor(String majorCode, int offset, int count) {
+        return jdbcTemplate.query(LIST_SUBJECTS_OF_CERTAIN_MAJOR, rowMapper, majorCode, offset, count);
+    }
+
+    /**
+     * 특정 학과 교과목 수
+     */
+    public Integer countOfSubjectsOfCertainMajor(String majorCode){
+        return jdbcTemplate.queryForObject(COUNT_OF_SUBJECTS_OF_CERTAIN_MAJOR, Integer.class, majorCode);
+    }
 }

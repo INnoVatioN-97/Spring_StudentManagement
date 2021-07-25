@@ -13,34 +13,38 @@ import java.util.List;
 
 @Repository
 public class MajorDao {
-    // 전공 추가
+    // 학과 추가
     private static final String ADD_MAJOR = """
             insert major values(:majorCode, :majorName);
             """;
-    // 전공명 변경
+    // 학과 정보 변경
     private static final String UPDATE_MAJOR = """
             update major set majorName=:majorName where majorCode=:majorCode
             """;
 
-    // 전공 목록 출력
+    // 학과 목록 출력
     private static final String LIST_MAJOR = """
-            select majorCode, majorName from major order by majorCode desc limit ?, ?
+            select majorCode, majorName from major order by majorCode limit ?, ?
             """;
 
-    // 전공 삭제
+    // 학과 삭제
     private static final String DELETE_MAJOR = """
             delete from major where majorCode=:majorCode
             """;
 
-    // 총 전공 개수
+    // 총 학과 개수
     private static final String COUNT_OF_MAJORS= """
             select count(majorCode) from major
             """;
 
-
     // 전공 이름들 가져오기 (회원가입용)
     private static final String GET_MAJOR_NAMES =
             "select majorName, majorCode from major order by majorCode";
+
+    // 전공 정보
+    private static final String GET_MAJOR = """
+            select majorName, majorCode, setupDate from major where majorCode=?
+            """;
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
@@ -61,6 +65,11 @@ public class MajorDao {
     // 전공 이름 목록
     public List<Major> getMajorNames(){
         return jdbcTemplate.query(GET_MAJOR_NAMES, rowMapper);
+    }
+
+    // 특정 전공 조회
+    public Major getMajor(String majorCode){
+        return jdbcTemplate.queryForObject(GET_MAJOR, rowMapper, majorCode);
     }
 
     // 전공 등록

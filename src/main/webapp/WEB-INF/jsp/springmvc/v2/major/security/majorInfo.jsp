@@ -1,23 +1,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="e" uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" %>
-<%--param으로 전달받은 page와 count값이 안왔으면 자동으로 1, 20으로 설정--%>
-<c:set var="page" value="${empty param.page ? 1 : param.page}"/>
-<c:set var="count" value="${empty param.count ? 20 : param.count}"/>
-<c:set var="maxPage" value="${Math.ceil(totalCount / count).intValue()}"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%@ include file="/WEB-INF/jsp/springmvc/v2/headerNav.jsp" %>
-    <title>전체 학과 목록 (관리자용)</title>
+    <title>${major.majorName} 상세정보</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${pageContext.request.contextPath}/">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 </head>
 <body>
 <main>
+
+<div align="center">${major.majorName} 상세정보</div>
+<ul class>
+    <li><label>총원</label> ${studentCount+staffCount} 명 (교직원 수 ${staffCount}명 / 학생 수 ${studentCount}명)</li>
+    <li><label>개설 과목</label> 총 ${subjectCount} 과목</li>
+    <li><label>학과 창설 일자</label> ${major.setupDate}</li>
+</ul>
     <c:choose>
-        <c:when test="${!empty sessionScope.USER && sessionScope.USER.id eq 'root'}">
-            <h3 align="center">전체 학과 목록</h3>
+        <c:when test="${!empty sessionScope.USER && sessionScope.USER.id eq 'root' or 'staff'}">
+            <h3 align="center">${major.majorName} 과목 목록</h3>
             <p>총 ${totalCount}건, ${maxPage}페이지</p>
             <form name="btns" method="get">
                 <p class="pagebar">
@@ -35,21 +36,27 @@
                 </p>
             </form>
             <div class="list">
-                <a href="./app/springmvc/v2/major/root/addMajor">학과 추가하기</a>
+                <a href="${pageContext.request.contextPath}/">돌아가기</a>
+                <a href="${pageContext.request.contextPath}/app/springmvc/v2/subject/addSubject">과목 추가</a>
                 <table>
                     <thead>
                     <tr>
-                        <td>학과코드</td>
-                        <td>학과명</td>
+                        <td>과목코드</td>
+                        <td>전공명</td>
+                        <td>교번</td>
+                        <td>담당교수</td>
                     </tr>
                     </thead>
+
                     <tbody>
-                        <%--      subjectCode | majorName  | professorName | subjectName       | professorId | majorCode--%>
-                    <c:forEach var="major" items="${majorList}">
+                        <%--subjectCode | subjectName | professorId | professorName--%>
+                    <c:forEach var="subject" items="${subjectList}">
                         <%--                관리자 계정은 보이지 않게.--%>
                         <tr>
-                            <td>${major.majorCode}</td>
-                            <td><a href="./app/springmvc/v2/user/security/preMajorInfo?majorCode=${major.majorCode}">${major.majorName}</a></td>
+                            <td>${subject.subjectCode}</td>
+                            <td>${subject.subjectName}</td>
+                            <td>${subject.professorId}</td>
+                            <td>${subject.professorName}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

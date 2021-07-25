@@ -28,10 +28,11 @@
 #### major 테이블 
 ###### 학과
 
-|Filed|Type|Null|Key|
-|---|---|---|---|
-|majorCode|varchar(10)|NO|PRI|
-|majorName|varchar(20)|NO||
+|Filed|Type|Null|Key|default|
+|---|---|---|---|---|
+|majorCode|varchar(10)|NO|PRI| |
+|majorName|varchar(20)|NO| | |
+|setupDate|DATE|YES| |current_date(미기입시 오늘날짜로 학과 개설일자 설정)|
 
 #### subject 테이블 
 ###### 과목

@@ -4,8 +4,60 @@ footer {
     text-align: center;
 }
 
-.loginForm{
+.loginForm table {
+    width: 55%;
+    align-items: center;
+    margin: auto;
 }
+
+.loginForm th {
+    padding: 20px;
+}
+
+.loginForm table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.loginForm input {
+    border: 0;
+    width: 100%;
+}
+
+.loginForm button {
+    display: inline-block;
+    border: 0;
+    width: 100%;
+    background-color: #9c88ff;
+    /*size: auto;*/
+}
+
+.loginForm button:hover {
+    background-color: #8c7ae6;
+}
+
+.btnLogin{
+}
+
+.btnBack{
+
+}
+
+#loginText {
+    text-align: left;
+
+}
+
+/*#tdId{*/
+/*    !*width: 60%;*!*/
+/*    width: 100%;*/
+/*}*/
+
+/*#tdLogin{*/
+/*    !*width: 40%;*!*/
+/*    width: 100%;*/
+/*}*/
 
 .logo {
     /*max-height: 240px;*/
@@ -16,7 +68,7 @@ footer {
     margin: 0;
     padding: 0;
     width: 100%;
-    text-align:center;
+    text-align: center;
     background-color: black;
 }
 
@@ -35,22 +87,20 @@ footer {
     color: black;
 }
 
-.formTemplate{
-    /*margin: 15px;*/
+
+.list {
     align-items: center;
 }
 
-.list{
-    align-items: center;
-}
-
-.list table{
+.list table {
     width: 100%;
 }
-.list th{
+
+.list th {
     padding: 20px;
 }
-.list table, th, td{
+
+.list table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;

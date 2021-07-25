@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller("subjectControllerV2")
@@ -47,5 +48,23 @@ public class SubjectController {
 
         // 세션에 현재 리스트 페이지를 넣는다.
         request.getSession().setAttribute("listPage", HttpUtils.getRequestURLWithQueryString(request));
+    }
+
+    // 학과 정보 출력 전 사전작업 2 (UserController 에서 넘어옴.)
+    @GetMapping("/security/preMajorInfo")
+    public String preMajorInfo(
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "20") int count,
+            HttpServletRequest request, Model model, HttpSession session) {
+        String majorCode = request.getParameter("majorCode");
+//        String majorCode = (String)session.getAttribute("majorCode");
+
+        int offset = (page - 1) * count; // 목록 시작 위치
+        List<Subject> subjectList = subjectDao.listSubjectOfCertainMajor(majorCode, offset, count);
+        model.addAttribute("subjectList", subjectList);
+
+        int subjectCount = subjectDao.countOfSubjectsOfCertainMajor(majorCode);
+        model.addAttribute("subjectCount", subjectCount);
+        return "forward:/app/springmvc/v2/major/security/majorInfo?majorCode="+majorCode;
     }
 }
