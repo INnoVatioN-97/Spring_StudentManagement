@@ -6,11 +6,12 @@ import kr.ac.mjc.youngil.web.dao.SubjectDao;
 import kr.ac.mjc.youngil.web.dao.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -66,5 +67,21 @@ public class SubjectController {
         int subjectCount = subjectDao.countOfSubjectsOfCertainMajor(majorCode);
         model.addAttribute("subjectCount", subjectCount);
         return "forward:/app/springmvc/v2/major/security/majorInfo?majorCode="+majorCode;
+    }
+
+    /**
+     * 과목 추가 액션 (from addSubject.jsp-> form action)
+     */
+    @PostMapping("/addSubjectAction")
+    public String addSubject(HttpServletRequest request, @ModelAttribute Subject subject, RedirectAttributes attributes){
+        try{
+            subjectDao.addSubject(subject);
+            return "redirect:/app/springmvc/v2/user/security/preMajorInfo?majorCode="+request.getParameter("majorCode");
+        }catch (DuplicateKeyException e){
+            attributes.addFlashAttribute("msg", "Duplicate Subject. check it again");
+            return "redirect:/app/springmvc/v2/subject/addSubject";
+        }catch (EmptyResultDataAccessException e){
+            return "300";
+        }
     }
 }

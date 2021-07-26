@@ -22,9 +22,33 @@ import java.util.List;
  */
 @Repository
 public class UserDao {
-    //전체 학생 수
+    // 전체 회원 목록 (관리자 제외)
+    private static final String LIST_USERS = """
+            select classification, id, name, gender, birthDay, majorCode,
+            major.majorName majorName from user join major
+            using (majorCode) order by majorName, classification, id limit ?,?
+            """;
+
+    private static final String LIST_PROFESSORS = """
+            """;
+
+    private static final String LIST_STUDENTS = """
+            """;
+
+    //  ? 학과의 분류가 ?인 사람들 목록을 가져옴. (ex: '041'(전자공학과) 'staff' (교수들) 목록 가져오기)
+    private static final String LIST_OF_PEOPLE_OF_CERTAIN_MAJOR = """
+            select * from user where majorCode=? and classification=?;
+            """;
+
+    //전체 회원 수 (학생 + 교직원)
     private static final String COUNT_ALL_USERS = """
             select count(id) from user 
+            """;
+
+    private  static final String COUNT_ALL_STUDENTS = """
+            """;
+
+    private static final String COUNT_ALL_PROFESSORS = """
             """;
 
     //회원 정보 수정
@@ -42,12 +66,6 @@ public class UserDao {
             insert user values(?, ?, sha2(?,256), ?, ?, ?, ?)
             """;
 
-    // 전체 회원 목록 (관리자 제외)
-    private static final String LIST_USERS = """
-            select classification, id, name, gender, birthDay, majorCode,
-            major.majorName majorName from user join major
-            using (majorCode) order by majorName, classification, id limit ?,?
-            """;
 
     // 내 정보 (특정 회원 조회)
     private static final String GET_USER = """
@@ -149,5 +167,9 @@ public class UserDao {
      */
     public User login(String id, String password) throws EmptyResultDataAccessException {
         return jdbcTemplate.queryForObject(LOGIN_USER, rowMapper, id, password);
+    }
+
+    public List<User> listOfCertainMajor(String majorCode, String classification){
+        return jdbcTemplate.query(LIST_OF_PEOPLE_OF_CERTAIN_MAJOR, rowMapper, majorCode, classification);
     }
 }

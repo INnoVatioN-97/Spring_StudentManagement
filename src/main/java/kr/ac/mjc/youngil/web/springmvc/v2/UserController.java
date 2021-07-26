@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller("userControllerV2")
@@ -126,5 +124,17 @@ public class UserController {
         model.addAttribute("staffCount", staffCount);
 
         return "forward:/app/springmvc/v2/subject/security/preMajorInfo?majorCode="+majorCode;
+    }
+
+    /**
+     * 과목 추가 액션 2(Major Controller 에서 넘어옴.)
+     */
+    @GetMapping("/security/preAddSubject2")
+    public String preAddSubject(Model model, HttpServletRequest request){
+        String majorCode = request.getParameter("majorCode");
+        List<User> professorList = userDao.listOfCertainMajor(majorCode, "staff");
+
+        model.addAttribute("professorList", professorList);
+        return "forward:/app/springmvc/v2/subject/addSubject?majorCode="+majorCode;
     }
 }

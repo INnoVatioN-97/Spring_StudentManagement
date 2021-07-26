@@ -1,7 +1,13 @@
 footer {
+    padding: 15px 0;
     background-color: lightgray;
-    padding: 25px;
+    color: black;
+    /*padding: 25px;*/
     text-align: center;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
 }
 
 .loginForm table {
@@ -93,11 +99,17 @@ footer {
 }
 
 .list table {
-    width: 100%;
+    margin : auto;
+    width: 90%;
 }
 
 .list th {
     padding: 20px;
+    background-color: aliceblue;
+}
+
+.list thead tr{
+    background-color: blanchedalmond;
 }
 
 .list table, th, td {
@@ -105,4 +117,16 @@ footer {
     border-collapse: collapse;
     text-align: center;
 }
+.list a:hover{
+    background-color: #8c7ae6;
+}
+.list a:link {
+    color: black;
+    text-decoration: none;
+}
+.list a:visited{
+    color: black;
+    text-decoration: none;
+}
+
 

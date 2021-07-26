@@ -98,5 +98,16 @@ public class MajorController {
         Major major = majorDao.getMajor(request.getParameter("majorCode"));
         model.addAttribute("major", major);
     }
+
+    /**
+     * 과목추가 액션 1
+     */
+    @GetMapping("/preAddSubject1")
+    public String preAddSubject(Model model, HttpServletRequest request){
+        String majorCode = request.getParameter("majorCode");
+        Major major = majorDao.getMajor(majorCode);
+        model.addAttribute("major", major);
+        return "forward:/app/springmvc/v2/user/security/preAddSubject2?majorCode="+majorCode;
+    }
 }
 

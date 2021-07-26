@@ -1,9 +1,11 @@
 package kr.ac.mjc.youngil.web.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -38,7 +40,7 @@ public class SubjectDao {
 
     // 과목 추가
     private static final String ADD_SUBJECT = """
-            insert subject values(null, :majorCode, :subjectName)
+            insert subject values(null, ?, ?, ?)
             """;
 
     // 특정 과목 삭제
@@ -94,5 +96,9 @@ public class SubjectDao {
      */
     public Integer countOfSubjectsOfCertainMajor(String majorCode){
         return jdbcTemplate.queryForObject(COUNT_OF_SUBJECTS_OF_CERTAIN_MAJOR, Integer.class, majorCode);
+    }
+
+    public void addSubject(Subject subject) throws DuplicateKeyException{
+        jdbcTemplate.query(ADD_SUBJECT, rowMapper, subject.majorCode, subject.subjectName, subject.professorId);
     }
 }

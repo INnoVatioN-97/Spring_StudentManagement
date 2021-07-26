@@ -38,5 +38,6 @@
         </c:otherwise>
     </c:choose>
 </main>
+<%@ include file="/WEB-INF/jsp/springmvc/v2/footer.jsp" %>
 </body>
 </html>
