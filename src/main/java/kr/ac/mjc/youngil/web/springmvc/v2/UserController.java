@@ -63,11 +63,13 @@ public class UserController {
     ){
         try{
             userDao.addUser(student);
-            return "redirect:/app/springmvc/v2/user/userList";
+            return "redirect:/";
         }catch (DuplicateKeyException e){
             // redirect 시 attribute 를 저장
-            attributes.addFlashAttribute("msg", "Duplicate email");
-            return "springmvc/v2/springmvc/v2/student/security/addStudent";
+            attributes.addFlashAttribute(
+                    "msg",
+                    "Duplicate something. check it again");
+            return "redirect:/app/springmvc/v2/major/preJoinForm";
         }
     }
 

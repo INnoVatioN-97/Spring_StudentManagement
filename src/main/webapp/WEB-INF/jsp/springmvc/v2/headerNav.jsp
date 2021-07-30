@@ -16,9 +16,6 @@
                     <li>
                         <a href="./app/springmvc/v2/subject/subjectList">우리 학과 과목 목록</a>
                     </li>
-                    <%--                    <li>--%>
-                    <%--                        <a href="./app/springmvc/v2/user/s/logout">로그아웃</a>--%>
-                    <%--                    </li>--%>
                 </c:when>
                 <c:when test="${sessionScope.USER.classification.equalsIgnoreCase('root')}">
                     <li style="color: white">
@@ -33,20 +30,11 @@
                     <li>
                         <a href="./app/springmvc/v2/subject/root/allSubjectList">전체 과목 목록</a>
                     </li>
-                    <%--                    <li>--%>
-                    <%--                        <a href="./app/springmvc/v2/user/s/logout">로그아웃</a>--%>
-                    <%--                    </li>--%>
                 </c:when>
                 <c:otherwise>
                     <li style="color: white">
                         환영합니다, ${sessionScope.USER.name} 학생
                     </li>
-                    <%--                    <li>--%>
-                    <%--                        <a href="./app/springmvc/v2/student/studentInfo">내 정보</a>--%>
-                    <%--                    </li>--%>
-                    <%--                    <li>--%>
-                    <%--                        <a href="./app/springmvc/v2/user/s/logout">로그아웃</a>--%>
-                    <%--                    </li>--%>
                 </c:otherwise>
             </c:choose>
             <li>

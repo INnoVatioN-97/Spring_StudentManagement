@@ -47,6 +47,7 @@
                 </button>
             </p>
         </form>
+        <p class="warn">${msg}</p>
     </main>
 </body>
 </html>

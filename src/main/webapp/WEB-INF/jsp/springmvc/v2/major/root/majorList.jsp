@@ -44,12 +44,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <%--      subjectCode | majorName  | professorName | subjectName       | professorId | majorCode--%>
                     <c:forEach var="major" items="${majorList}">
-                        <%--                관리자 계정은 보이지 않게.--%>
                         <tr>
                             <td>${major.majorCode}</td>
-                            <td><a href="./app/springmvc/v2/user/security/preMajorInfo?majorCode=${major.majorCode}">${major.majorName}</a></td>
+                            <td>
+                                <a href="./app/springmvc/v2/user/security/preMajorInfo?majorCode=${major.majorCode}">${major.majorName}</a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -61,12 +61,8 @@
         </c:otherwise>
     </c:choose>
 </main>
-<%--<%@ include file="/WEB-INF/jsp/springmvc/v2/footer.jsp" %>--%>
 <script>
     let btns = document.btns;
-    // form1.getElementById("btnPrev").onclick = function () {
-    //     form1.page.value--;
-    // };
     const prev = () => {
         btns.page.value--;
     }

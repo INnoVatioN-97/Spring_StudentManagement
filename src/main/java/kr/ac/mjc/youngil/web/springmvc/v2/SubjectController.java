@@ -3,7 +3,6 @@ package kr.ac.mjc.youngil.web.springmvc.v2;
 import kr.ac.mjc.youngil.web.HttpUtils;
 import kr.ac.mjc.youngil.web.dao.Subject;
 import kr.ac.mjc.youngil.web.dao.SubjectDao;
-import kr.ac.mjc.youngil.web.dao.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -33,9 +32,9 @@ public class SubjectController {
      */
     @GetMapping("/root/allSubjectList")
     public void allSubjectList(
-            @RequestParam(required = false, defaultValue = "1")int page,
+            @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "20") int count,
-            HttpServletRequest request, Model model){
+            HttpServletRequest request, Model model) {
         int offset = (page - 1) * count; // 목록 시작 위치
         // 위에서 구한 offset 값과 count 를 메소드에 넣어 학생 목록을 불러온다.
         List<Subject> subjectList = subjectDao.listAllSubjects(offset, count);
@@ -66,29 +65,29 @@ public class SubjectController {
 
         int subjectCount = subjectDao.countOfSubjectsOfCertainMajor(majorCode);
         model.addAttribute("subjectCount", subjectCount);
-        return "forward:/app/springmvc/v2/major/security/majorInfo?majorCode="+majorCode;
+        return "forward:/app/springmvc/v2/major/security/majorInfo?majorCode=" + majorCode;
     }
 
     /**
      * 과목 추가 액션 (from addSubject.jsp-> form action)
      */
     @PostMapping("/addSubjectAction")
-    public String addSubject(HttpServletRequest request, @ModelAttribute Subject subject, RedirectAttributes attributes){
-        try{
+    public String addSubject(HttpServletRequest request, @ModelAttribute Subject subject, RedirectAttributes attributes) {
+        try {
             subjectDao.addSubject(subject);
-            return "redirect:/app/springmvc/v2/user/security/preMajorInfo?majorCode="+request.getParameter("majorCode");
-        }catch (DuplicateKeyException e){
+            return "redirect:/app/springmvc/v2/user/security/preMajorInfo?majorCode=" + request.getParameter("majorCode");
+        } catch (DuplicateKeyException e) {
             attributes.addFlashAttribute("msg", "Duplicate Subject. check it again");
             return "redirect:/app/springmvc/v2/subject/addSubject";
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return "300";
         }
     }
 
     @PostMapping("/deleteSubject")
-    public String deleteSubject(String majorCode, int subjectCode){
+    public String deleteSubject(String majorCode, int subjectCode) {
         subjectDao.deleteSubject(majorCode, subjectCode);
 
-        return "redirect:/app/springmvc/v2/user/security/preMajorInfo?majorCode="+majorCode;
+        return "redirect:/app/springmvc/v2/user/security/preMajorInfo?majorCode=" + majorCode;
     }
 }

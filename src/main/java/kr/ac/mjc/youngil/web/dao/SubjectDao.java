@@ -5,6 +5,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +41,7 @@ public class SubjectDao {
 
     // 과목 추가
     private static final String ADD_SUBJECT = """
-            insert subject values(null, ?, ?, ?)
+            insert subject values(null, :majorCode, :subjectName, :professorId)
             """;
 
     // 특정 과목 삭제
@@ -99,7 +100,7 @@ public class SubjectDao {
     }
 
     public void addSubject(Subject subject) throws DuplicateKeyException {
-        jdbcTemplate.update(ADD_SUBJECT, rowMapper, subject.majorCode, subject.subjectName, subject.professorId);
+        namedParameterJdbcTemplate.update(ADD_SUBJECT, new BeanPropertySqlParameterSource(subject));
     }
 
     /**
