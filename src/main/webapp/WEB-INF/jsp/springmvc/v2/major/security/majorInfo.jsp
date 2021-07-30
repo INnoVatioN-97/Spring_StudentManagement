@@ -41,29 +41,30 @@
                     <div class="list">
                         <a href="javascript:window.history.back();">돌아가기</a>
                         <a href="${pageContext.request.contextPath}/app/springmvc/v2/major/preAddSubject1?majorCode=${major.majorCode}">과목 추가</a>
-                        <table>
-                            <thead>
-                            <tr>
-                                <td>과목코드</td>
-                                <td>전공명</td>
-                                <td>교번</td>
-                                <td>담당교수</td>
-                            </tr>
-                            </thead>
+                        <%@ include file="/WEB-INF/jsp/springmvc/v2/subject/subjectList.jsp"%>
+<%--                        <table>--%>
+<%--                            <thead>--%>
+<%--                            <tr>--%>
+<%--                                <td>과목코드</td>--%>
+<%--                                <td>전공명</td>--%>
+<%--                                <td>교번</td>--%>
+<%--                                <td>담당교수</td>--%>
+<%--                            </tr>--%>
+<%--                            </thead>--%>
 
-                            <tbody>
-                                <%--subjectCode | subjectName | professorId | professorName--%>
-                            <c:forEach var="subject" items="${subjectList}">
-                                <%--                관리자 계정은 보이지 않게.--%>
-                                <tr>
-                                    <td>${subject.subjectCode}</td>
-                                    <td>${subject.subjectName}</td>
-                                    <td>${subject.professorId}</td>
-                                    <td>${subject.professorName}</td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+<%--                            <tbody>--%>
+<%--                                &lt;%&ndash;subjectCode | subjectName | professorId | professorName&ndash;%&gt;--%>
+<%--                            <c:forEach var="subject" items="${subjectList}">--%>
+<%--                                &lt;%&ndash;                관리자 계정은 보이지 않게.&ndash;%&gt;--%>
+<%--                                <tr>--%>
+<%--                                    <td>${subject.subjectCode}</td>--%>
+<%--                                    <td>${subject.subjectName}</td>--%>
+<%--                                    <td>${subject.professorId}</td>--%>
+<%--                                    <td>${subject.professorName}</td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+<%--                            </tbody>--%>
+<%--                        </table>--%>
                     </div>
                 </c:when>
                 <c:otherwise>

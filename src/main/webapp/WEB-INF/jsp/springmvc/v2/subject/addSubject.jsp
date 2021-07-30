@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 </head>
 <body>
-<div align="center">
-    addSubject 페이지
-    <div>
-        ${major}
-    </div>
-    <div>
-        ${professorList}
-    </div>
-</div>
+<%--<div align="center">--%>
+<%--    addSubject 페이지--%>
+<%--    <div>--%>
+<%--        ${major}--%>
+<%--    </div>--%>
+<%--    <div>--%>
+<%--        ${professorList}--%>
+<%--    </div>--%>
+<%--</div>--%>
     <div>
         <form action="./app/springmvc/v2/subject/addSubjectAction" method="post">
             <input type="text" value="${major.majorName}" disabled/>
