@@ -84,4 +84,11 @@ public class SubjectController {
             return "300";
         }
     }
+
+    @PostMapping("/deleteSubject")
+    public String deleteSubject(String majorCode, int subjectCode){
+        subjectDao.deleteSubject(majorCode, subjectCode);
+
+        return "redirect:/app/springmvc/v2/user/security/preMajorInfo?majorCode="+majorCode;
+    }
 }

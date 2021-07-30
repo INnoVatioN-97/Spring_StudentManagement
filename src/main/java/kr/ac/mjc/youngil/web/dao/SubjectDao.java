@@ -5,9 +5,9 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
@@ -34,7 +34,7 @@ public class SubjectDao {
     /**
      * 특정 학과 교과목 수
      */
-    private static final String COUNT_OF_SUBJECTS_OF_CERTAIN_MAJOR= """
+    private static final String COUNT_OF_SUBJECTS_OF_CERTAIN_MAJOR = """
             select count(subjectCode) from subject where majorCode=?;
             """;
 
@@ -45,12 +45,12 @@ public class SubjectDao {
 
     // 특정 과목 삭제
     private static final String DELETE_SUBJECT = """
-            delete from subject where subjectCode = ? and majorCode = ?
+            delete from subject where majorCode = ? and subjectCode = ?
             """;
 
     // 과목 정보 수정
     private static final String UPDATE_SUBJECT = """
-            update subject set subjectName=:subjectName, 
+            update subject set subjectName=:subjectName
             """;
 
     /**
@@ -94,11 +94,18 @@ public class SubjectDao {
     /**
      * 특정 학과 교과목 수
      */
-    public Integer countOfSubjectsOfCertainMajor(String majorCode){
+    public Integer countOfSubjectsOfCertainMajor(String majorCode) {
         return jdbcTemplate.queryForObject(COUNT_OF_SUBJECTS_OF_CERTAIN_MAJOR, Integer.class, majorCode);
     }
 
-    public void addSubject(Subject subject) throws DuplicateKeyException{
-        jdbcTemplate.query(ADD_SUBJECT, rowMapper, subject.majorCode, subject.subjectName, subject.professorId);
+    public void addSubject(Subject subject) throws DuplicateKeyException {
+        jdbcTemplate.update(ADD_SUBJECT, rowMapper, subject.majorCode, subject.subjectName, subject.professorId);
+    }
+
+    /**
+     * n개 교과목 삭제
+     */
+    public void deleteSubject(String majorCode, int subjectCode) {
+        jdbcTemplate.update(DELETE_SUBJECT, majorCode, subjectCode);
     }
 }
