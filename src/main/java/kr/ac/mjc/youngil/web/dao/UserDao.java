@@ -37,7 +37,7 @@ public class UserDao {
 
     //  ? 학과의 분류가 ?인 사람들 목록을 가져옴. (ex: '041'(전자공학과) 'staff' (교수들) 목록 가져오기)
     private static final String LIST_OF_PEOPLE_OF_CERTAIN_MAJOR = """
-            select * from user where majorCode=? and classification=?;
+            select id, name, gender, birthDay from user where majorCode=? and classification=? limit ?, ?;
             """;
 
     //전체 회원 수 (학생 + 교직원)
@@ -169,7 +169,7 @@ public class UserDao {
         return jdbcTemplate.queryForObject(LOGIN_USER, rowMapper, id, password);
     }
 
-    public List<User> listOfCertainMajor(String majorCode, String classification){
-        return jdbcTemplate.query(LIST_OF_PEOPLE_OF_CERTAIN_MAJOR, rowMapper, majorCode, classification);
+    public List<User> listOfCertainMajor(String majorCode, String classification,int offset,int count){
+        return jdbcTemplate.query(LIST_OF_PEOPLE_OF_CERTAIN_MAJOR, rowMapper, majorCode, classification, offset, count);
     }
 }
