@@ -45,13 +45,10 @@
         console.log(subjectCode + ' 눌림');
         let isDelete = confirm(subjectName + '과목을 삭제할까요?');
         if (isDelete) {
-            // alert('삭제하램.');
             const form = document.getElementById('form1');
             form.submit();
-            // form.su
+            alert(subjectName+'과목을 삭제했습니다.');
         }
-        // console.log(subjectName);
-        // console.log(subjectCode);
     }
 </script>
 </html>

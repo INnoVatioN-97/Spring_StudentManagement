@@ -47,7 +47,6 @@ public class MajorController {
         request.getSession().setAttribute("listPage", HttpUtils.getRequestURLWithQueryString(request));
     }
 
-
     // 학과명들을 가져온 후 회원가입 창으로 이동
     @GetMapping("/preJoinForm")
     public String majorNameList(Model model) {

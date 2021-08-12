@@ -14,7 +14,7 @@
                         <a href="./app/springmvc/v2/user/security/myStudentList">우리 학과 학생 목록</a>
                     </li>
                     <li>
-                        <a href="./app/springmvc/v2/subject/subjectList">우리 학과 과목 목록</a>
+                        <a href="./app/springmvc/v2/subject/security/myMajorSubjectList">우리 학과 과목 목록</a>
                     </li>
                 </c:when>
                 <c:when test="${sessionScope.USER.classification.equalsIgnoreCase('root')}">

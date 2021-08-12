@@ -22,14 +22,14 @@ public class SubjectDao {
             order by majorCode asc, professorId asc limit ?,?
             """;
 
-    // 특정 학과 교과목
+    // 특정 학과 교과목 (ex: 전자공학과 교과목 등)
     private static final String LIST_SUBJECTS_OF_CERTAIN_MAJOR = """
-            select subjectCode, subjectName, professorId, user.name professorName,
-             subject.majorCode, major.majorName 
-             from subject join user join major 
-             where professorId = user.id 
-             and subject.majorCode = major.majorCode 
-             and subject.majorCode = ? order by professorId limit ?,?
+            select majorName, subject.majorcode majorCode,
+            subjectCode, subjectName, subject.professorId,
+            user.name professorName
+            from major inner join subject on major.majorCode = subject.majorCode
+            inner join user on subject.professorId = user.id
+            where subject.majorCode = ? order by professorId limit ?,?
             """;
 
     /**
